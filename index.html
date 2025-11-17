@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workers Make Possible - Blog | Inspirasi dan Tips untuk Tenaga Kerja</title>
+    <meta name="description" content="Blog resmi Workers Make Possible - Temukan inspirasi, tips karir, dan panduan pengembangan diri untuk tenaga kerja Indonesia">
+    <meta name="keywords" content="tenaga kerja, karir, pekerjaan, tips kerja, pengembangan diri, workers make possible">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Workers Make Possible Blog",
+        "url": "https://page.workersmakepossible.com",
+        "description": "Blog inspirasi dan panduan untuk tenaga kerja Indonesia",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Workers Make Possible",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://workersmakepossible.com/logo.png"
+            }
+        }
+    }
+    </script>
+    
+    <style>
+        /* Reset dan Variabel */
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #f8b500;
+            --accent: #e74c3c;
+            --light: #f9f9f9;
+            --dark: #2c3e50;
+            --text: #333;
+            --gray: #6c757d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #fff;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--accent);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 1.5rem;
+        }
+        
+        nav a {
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #1a3a7a);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: #e6a700;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Blog Content */
+        .blog-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .blog-post {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-5px);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 250px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .post-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .post-excerpt {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        .read-more {
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .widget-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            color: var(--dark);
+        }
+        
+        .categories-list, .popular-posts {
+            list-style: none;
+        }
+        
+        .categories-list li, .popular-posts li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories-list li:last-child, .popular-posts li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .categories-list a, .popular-posts a {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .categories-list span {
+            background-color: var(--light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .newsletter-form input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #234785;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .pagination a, .pagination span {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .pagination a:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .pagination .current {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: #bbb;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav li {
+                margin: 0;
+                text-align: center;
+                padding: 0.8rem 0;
+            }
+            
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Workers<span>Blog</span></h1>
+            </div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#">Beranda</a></li>
+                    <li><a href="#">Artikel</a></li>
+                    <li><a href="#">Kategori</a></li>
+                    <li><a href="#">Tentang</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Inspirasi untuk Tenaga Kerja Indonesia</h2>
+            <p>Temukan panduan karir, tips pengembangan diri, dan kisah inspiratif untuk membantu Anda berkembang di dunia kerja</p>
+            <a href="#" class="btn">Jelajahi Artikel</a>
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <div class="container blog-container">
+        <main class="main-content">
+            <!-- Artikel 1 -->
+            <article class="blog-post">
+                <div class="post-image">Gambar Artikel</div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-date">15 Maret 2024</span>
+                        <span class="post-category">Pengembangan Diri</span>
+                    </div>
+                    <h2 class="post-title">5 Cara Meningkatkan Produktivitas Kerja di Era Digital</h2>
+                    <p class="post-excerpt">Pelajari strategi efektif untuk meningkatkan produktivitas kerja dengan memanfaatkan teknologi dan teknik manajemen waktu yang terbukti efektif.</p>
+                    <a href="#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+            
+            <!-- Artikel 2 -->
+            <article class="blog-post">
+                <div class="post-image">Gambar Artikel</div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-date">10 Maret 2024</span>
+                        <span class="post-category">Tips Karir</span>
+                    </div>
+                    <h2 class="post-title">Bagaimana Menghadapi Perubahan di Dunia Kerja Pasca Pandemi</h2>
+                    <p class="post-excerpt">Dunia kerja telah berubah secara signifikan setelah pandemi. Temukan cara beradaptasi dan berkembang dalam lingkungan kerja yang baru.</p>
+                    <a href="#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+            
+            <!-- Artikel 3 -->
+            <article class="blog-post">
+                <div class="post-image">Gambar Artikel</div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-date">5 Maret 2024</span>
+                        <span class="post-category">Keterampilan</span>
+                    </div>
+                    <h2 class="post-title">Soft Skills yang Paling Dicari Perusahaan di Tahun 2024</h2>
+                    <p class="post-excerpt">Selain kemampuan teknis, soft skills menjadi faktor penentu kesuksesan karir. Ketahui keterampilan apa yang paling dibutuhkan saat ini.</p>
+                    <a href="#" class="read-more">Baca Selengkapnya →</a>
+                </div>
+            </article>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <span class="current">1</span>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">→</a>
+            </div>
+        </main>
+        
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Widget Pencarian -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Pencarian</h3>
+                <form class="search-form">
+                    <input type="text" placeholder="Cari artikel...">
+                    <button type="submit" style="display:none;">Cari</button>
+                </form>
+            </div>
+            
+            <!-- Widget Kategori -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Kategori</h3>
+                <ul class="categories-list">
+                    <li><a href="#">Pengembangan Diri <span>12</span></a></li>
+                    <li><a href="#">Tips Karir <span>8</span></a></li>
+                    <li><a href="#">Keterampilan Kerja <span>15</span></a></li>
+                    <li><a href="#">Work-Life Balance <span>7</span></a></li>
+                    <li><a href="#">Industri & Tren <span>10</span></a></li>
+                </ul>
+            </div>
+            
+            <!-- Widget Artikel Populer -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Artikel Populer</h3>
+                <ul class="popular-posts">
+                    <li><a href="#">Cara Membuat CV yang Menarik bagi HRD</a></li>
+                    <li><a href="#">Strategi Negosiasi Gaji yang Efektif</a></li>
+                    <li><a href="#">Mengatasi Stres Kerja dengan Teknik Sederhana</a></li>
+                    <li><a href="#">Peluang Kerja Remote di Era Digital</a></li>
+                </ul>
+            </div>
+            
+            <!-- Widget Newsletter -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Newsletter</h3>
+                <p>Dapatkan update artikel terbaru langsung ke email Anda</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Alamat email Anda" required>
+                    <button type="submit">Berlangganan</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Tentang WorkersBlog</h3>
+                    <p>Blog resmi Workers Make Possible yang menyediakan konten inspiratif dan edukatif untuk tenaga kerja Indonesia.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Twitter">t</a>
+                        <a href="#" title="Instagram">i</a>
+                        <a href="#" title="LinkedIn">in</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Artikel</a></li>
+                        <li><a href="#">Kategori</a></li>
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kategori Populer</h3>
+                    <ul>
+                        <li><a href="#">Pengembangan Diri</a></li>
+                        <li><a href="#">Tips Karir</a></li>
+                        <li><a href="#">Keterampilan Kerja</a></li>
+                        <li><a href="#">Work-Life Balance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak</h3>
+                    <ul>
+                        <li>Email: info@workersmakepossible.com</li>
+                        <li>Telepon: (021) 1234-5678</li>
+                        <li>Alamat: Jakarta, Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Workers Make Possible Blog. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu untuk mobile
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navMenu').classList.toggle('active');
+        });
+        
+        // Tutup menu saat link diklik (untuk mobile)
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('navMenu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
