@@ -1,0 +1,7 @@
+User-agent: Googlebot
+Disallow: /aplikasi/
+
+User-agent: *
+Allow: /
+
+Sitemap: https://page.workersmakepossible.com/sitemap.xml
